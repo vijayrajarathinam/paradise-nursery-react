@@ -5,7 +5,7 @@ export default function LandingPage() {
     <div className="relative min-h-screen flex flex-col">
       <div className="absolute inset-0 z-0">
         <img
-          src="/images/nursery-background.jpg"
+          src="images/nursery-background.jpg"
           alt="Paradise Nursery Background"
           className="w-full h-full object-cover brightness-50"
         />

@@ -1,24 +1,27 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { Minus, Plus, Trash2 } from "react-feather"
-import { useCart } from "../context/CartContext"
-import Header from "../components/Header"
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Minus, Plus, Trash2 } from "react-feather";
+import { useCart } from "../context/CartContext";
+import Header from "../components/Header";
 
 export default function CartPage() {
-  const { cart, updateQuantity, removeFromCart } = useCart()
-  const [cartItemCount, setCartItemCount] = useState(0)
-  const [totalAmount, setTotalAmount] = useState(0)
+  const { cart, updateQuantity, removeFromCart } = useCart();
+  const [cartItemCount, setCartItemCount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   // Calculate total items and amount
   useEffect(() => {
-    const count = cart.reduce((total, item) => total + item.quantity, 0)
-    const amount = cart.reduce((total, item) => total + item.price * item.quantity, 0)
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    const amount = cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
 
-    setCartItemCount(count)
-    setTotalAmount(amount)
-  }, [cart])
+    setCartItemCount(count);
+    setTotalAmount(amount);
+  }, [cart]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -41,14 +44,19 @@ export default function CartPage() {
         ) : (
           <>
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h2 className="text-xl font-bold mb-4">Total Cart Amount: ${totalAmount.toFixed(2)}</h2>
+              <h2 className="text-xl font-bold mb-4">
+                Total Cart Amount: ${totalAmount.toFixed(2)}
+              </h2>
 
               <div className="space-y-6">
                 {cart.map((item) => (
-                  <div key={item.id} className="flex flex-col md:flex-row border-b pb-6">
+                  <div
+                    key={item.id}
+                    className="flex flex-col md:flex-row border-b pb-6"
+                  >
                     <div className="md:w-1/4">
                       <img
-                        src={item.image || "/placeholder.svg"}
+                        src={item.image || "placeholder.svg"}
                         alt={item.name}
                         className="w-full h-40 object-cover rounded"
                       />
@@ -59,7 +67,9 @@ export default function CartPage() {
 
                       <div className="flex items-center mt-4">
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity - 1)
+                          }
                           className="bg-gray-200 hover:bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center"
                           aria-label="Decrease quantity"
                         >
@@ -67,7 +77,9 @@ export default function CartPage() {
                         </button>
                         <span className="mx-4">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity + 1)
+                          }
                           className="bg-gray-200 hover:bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center"
                           aria-label="Increase quantity"
                         >
@@ -76,7 +88,9 @@ export default function CartPage() {
                       </div>
 
                       <div className="flex justify-between items-center mt-4">
-                        <p className="font-bold">Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="font-bold">
+                          Total: ${(item.price * item.quantity).toFixed(2)}
+                        </p>
                         <button
                           onClick={() => removeFromCart(item.id)}
                           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
@@ -106,5 +120,5 @@ export default function CartPage() {
         )}
       </main>
     </div>
-  )
+  );
 }
